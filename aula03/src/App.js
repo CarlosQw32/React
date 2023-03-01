@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+ 
+import { FiSearch } from "react-icons/fi";
 
+ 
 function App() {
+ 
+  const [inputCepDigitado,setinputCepDigitado] = useState('');
+ 
+ 
+  function pesquisarCep() {
+    alert ('valor digitado:' + inputCepDigitado);
+ 
+  }
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>BUSCADOR DE CEP</h1>
+ 
+      <p>digite seu cep: </p>
+      <input type="text" placeholder='digite um cep' value={inputCepDigitado} onChange={(event) => setinputCepDigitado(event.target.value)} />
+      <button onClick={pesquisarCep}>
+        <FiSearch size={50} color="red"/>        
+      </button>
+     
+     
+ 
     </div>
   );
 }
-
+ 
 export default App;
