@@ -1,32 +1,34 @@
-import { useState } from "react";
- 
+import {useState} from "react";
 import { FiSearch } from "react-icons/fi";
+import apiCep from './Service/apiCep.js';
+import { Title } from "./Estilos/styles.js";
 
- 
 function App() {
- 
   const [inputCepDigitado,setinputCepDigitado] = useState('');
- 
- 
-  function pesquisarCep() {
-    alert ('valor digitado:' + inputCepDigitado);
- 
-  }
- 
+  const [cep,setCep] = useState('');
+    async function pesquisarCep() {
+      //alert ('valor digitado: ' + inputCepDigitado)
+      const responseCep = await apiCep.get(`${inputCepDigitado}/json`)
+      setCep(responseCep.data);
+      console.log(responseCep.data);
+    }
   return (
     <div>
-      <h1>BUSCADOR DE CEP</h1>
- 
-      <p>digite seu cep: </p>
-      <input type="text" placeholder='digite um cep' value={inputCepDigitado} onChange={(event) => setinputCepDigitado(event.target.value)} />
+      <Title> Styles components </Title>
+
+      <Title>BUSCADOR DE CEP</Title>
+      
+      <p>CEP: <input type="text" placeholder="Digite seu CEP" value={inputCepDigitado} onChange={(event) => setinputCepDigitado(event.target.value)}></input>
       <button onClick={pesquisarCep}>
-        <FiSearch size={50} color="red"/>        
+        <FiSearch/>
       </button>
-     
-     
- 
+      </p>
+      <h2>Valores da Pesquisa:</h2>
+      <p>Rua: {cep.logradouro}</p>
+      <p>Bairro: {cep.bairro}</p>
+      <p>Localidade: {cep.localidade}</p>
     </div>
   );
 }
- 
+
 export default App;
